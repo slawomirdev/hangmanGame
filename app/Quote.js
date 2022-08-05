@@ -1,27 +1,26 @@
 export class Quote {
-    constructor(text) {
-        this.text = text;
-        this.quessed = [];
-    }
+  constructor(text) {
+    this.text = text;
+    this.quessed = [];
+  }
 
-    getContent(){
-        let content = '';
-        for (const char of this.text){
-            if(char === ' ' || this.quessed.includes(char)){
-                content += char;
-            } else {
-                content += '_';
-            }
-        }
-        return content;
+  getContent() {
+    let content = '';
+    for (const char of this.text) {
+      if (char === ' ' || this.quessed.includes(char)) {
+        content += char;
+      } else {
+        content += '_';
+      }
     }
+    return content;
+  }
 
-    guess(letter) {
-        if(!this.text.includes(letter)){
-            return false
-        }
-        this.quessed.push(letter);
-        return true;
+  guess(letter) {
+    if (!this.text.includes(letter)) {
+      return false;
     }
-
+    this.quessed.push(letter);
+    return true;
+  }
 }
