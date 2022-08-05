@@ -1,0 +1,19 @@
+{
+  "name": "hangmangame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts":{
+    "format": "prettier --write app",
+    "start": "http-server"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
+}
