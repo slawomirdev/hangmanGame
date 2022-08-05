@@ -23,15 +23,12 @@ class Game {
     },
   ];
 
-  constructor({ lettersWrapper, categoryWrapper, wordWrapper, outputWrapper }) {
+  constructor({ lettersWrapper, categoryWrapper, wordWrapper }) {
     this.lettersWrapper = lettersWrapper;
     this.categoryWrapper = categoryWrapper;
     this.wordWrapper = wordWrapper;
-    this.outputWrapper = outputWrapper;
 
-    const { text, category } = this.quotes[Math.floor(Math.random() * this.quotes.length)];
-    this.categoryWrapper.innerHTML = category;
-    this.quote = new Quote(text);
+    this.shuffle();
   }
 
   guess(letter, event) {
@@ -45,6 +42,12 @@ class Game {
         this.loosing();
       }
     }
+  }
+
+  shuffle(){
+    const { text, category } = this.quotes[Math.floor(Math.random() * this.quotes.length)];
+    this.categoryWrapper.innerHTML = category;
+    this.quote = new Quote(text);
   }
 
   drawLetters() {
@@ -74,11 +77,30 @@ class Game {
   winning() {
     this.wordWrapper.innerHTML = 'GRATULACJE WYGRYWASZ! KONIEC GRY!';
     this.lettersWrapper.innerHTML = '';
+    this.restart();
   }
 
   loosing() {
     this.wordWrapper.innerHTML = 'PRZEGRAŁEŚ! KONIEC GRY!';
     this.lettersWrapper.innerHTML = '';
+    this.restart();
+  }
+
+  restart(){
+    const button = document.createElement('button');
+    button.innerHTML = 'Try again';
+    button.addEventListener('click', () => {
+      this.lettersWrapper.innerHTML = '';
+      this.currentStep = 0;
+      const elements = document.getElementsByClassName('step');
+      for (let i = 0; i<elements.length; i++) {
+        console.log(elements[i]);
+        elements[i].style.opacity = 0.2;
+      }
+      this.shuffle();
+      this.start();
+    });
+    this.lettersWrapper.appendChild(button);
   }
 }
 
@@ -86,6 +108,5 @@ const game = new Game({
   lettersWrapper: document.getElementById('letters'),
   categoryWrapper: document.getElementById('category'),
   wordWrapper: document.getElementById('word'),
-  outputWrapper: document.getElementById('output'),
 });
 game.start();
